@@ -16,8 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "我的小屋 - 技术分享与生活记录",
-  description: "基于Next.js构建的个人小屋，分享技术文章、学习笔记和生活感悟",
+  title: "My Internet House - A Cozy Corner on the Web",
+  description: "My personal sanctuary online - a space that belongs only to me where I can be myself and share my thoughts",
+  alternates: {
+    languages: {
+      'en': '/en',
+      'zh-CN': '/zh-CN',
+    },
+  },
 };
 
 export default function RootLayout({

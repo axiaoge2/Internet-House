@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +37,7 @@ export default function Header() {
                 {link.label.split(' ')[1]}
               </Link>
             ))}
+            <LanguageToggle />
             <ThemeToggle />
           </div>
 
@@ -77,9 +79,13 @@ export default function Header() {
                 <span className="font-medium">{link.label.split(' ')[1]}</span>
               </Link>
             ))}
-            <div className="pt-4 border-t border-border mt-4">
+            <div className="pt-4 border-t border-border mt-4 space-y-3">
               <div className="flex items-center justify-between px-4">
-                <span className="text-foreground/80 font-medium">🌙 主题切换</span>
+                <span className="text-foreground/80 font-medium">🌐 Language</span>
+                <LanguageToggle />
+              </div>
+              <div className="flex items-center justify-between px-4">
+                <span className="text-foreground/80 font-medium">🌙 Theme</span>
                 <ThemeToggle />
               </div>
             </div>

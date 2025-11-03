@@ -1,6 +1,7 @@
 {
-  "name": "blog",
-  "version": "0.1.0",
+  "name": "internet-house",
+  "version": "1.0.0",
+  "description": "My cozy personal sanctuary on the internet - a space that belongs only to me",
   "private": true,
   "scripts": {
     "dev": "next dev",

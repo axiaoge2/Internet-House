@@ -1,177 +1,201 @@
-# 个人小屋网站
+# Internet House 🏡
 
-基于 Next.js 16、Tailwind CSS v4 和 MDX 构建的现代化个人小屋系统。
+A modern personal blog reimagined as a cozy home on the internet. Built with Next.js 16, Tailwind CSS v4, and MDX.
 
-## 技术栈
+> "This isn't just a personal blog—it's my first house online, a space that belongs only to me where I can truly be myself and feel a sense of belonging."
 
-- **Next.js 16** - React 框架，支持服务端渲染和静态生成
-- **React 19** - 最新版本的 React
-- **TypeScript** - 类型安全的 JavaScript
-- **Tailwind CSS v4** - 原子化 CSS 框架
-- **MDX** - 支持在 Markdown 中使用 React 组件
-- **next-mdx-remote** - MDX 内容处理
-- **highlight.js** - 代码高亮
-- **gray-matter** - Front Matter 解析
-- **reading-time** - 阅读时间估算
+## 🏠 About This Project
 
-## 功能特性
+**Internet House** is more than just a blog—it's my personal sanctuary on the web. While functionally it's a personal blog, for me it's truly my first house online, a place where:
 
-✅ 响应式设计，支持移动端和桌面端
-✅ 文章列表展示
-✅ 文章详情页，支持 MDX 格式
-✅ 代码高亮显示
-✅ 分类系统
-✅ 标签系统（标签云）
-✅ 关于页面
-✅ 友情链接页面
-✅ 暗黑模式支持
-✅ SEO 友好
-✅ 静态站点生成（SSG）
+- 🏠 **Only belongs to me** - My spiritual territory on the internet
+- 💝 **Always online** - I'll always be here waiting
+- 🌸 **Relaxing and comfortable** - Where I can be my authentic self
+- ✨ **Warm and belonging** - A spiritual safe harbor from the complexity of the world
 
-## 快速开始
+## 🛠️ Tech Stack
 
-### 安装依赖
+- **Next.js 16** - React framework with SSR and SSG support
+- **React 19** - Latest version of React
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS v4** - Atomic CSS framework with custom warm color scheme
+- **MDX** - Markdown with React components support
+- **next-mdx-remote** - MDX content processing
+- **highlight.js** - Code syntax highlighting
+- **gray-matter** - Front Matter parsing
+- **reading-time** - Reading time estimation
+
+## ✨ Features
+
+✅ Responsive design for mobile and desktop
+✅ Article listing with cozy card design
+✅ Article detail pages with MDX support
+✅ Code syntax highlighting
+✅ Category system ("Rooms")
+✅ Tag system ("Little Objects")
+✅ About page
+✅ Warm, cozy UI with custom color palette
+✅ Dark mode support
+✅ SEO friendly
+✅ Static site generation (SSG)
+✅ Unique "home" metaphor throughout the UI
+
+## 🚀 Quick Start
+
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### 开发环境运行
+### Development server
 
 ```bash
 npm run dev
 ```
 
-访问 [http://localhost:3000](http://localhost:3000) 查看效果。
+Visit [http://localhost:3000](http://localhost:3000) to see the result.
 
-### 构建生产版本
+### Build for production
 
 ```bash
 npm run build
 ```
 
-### 启动生产服务器
+### Start production server
 
 ```bash
 npm start
 ```
 
-## 添加文章
+## 📝 Adding Articles
 
-1. 在 `content/posts/` 目录下创建新的 `.mdx` 或 `.md` 文件
-2. 添加 Front Matter 元数据：
+1. Create a new `.mdx` or `.md` file in the `content/posts/` directory
+2. Add Front Matter metadata:
 
 ```markdown
 ---
-title: "文章标题"
+title: "Article Title"
 date: "2025-11-02"
-excerpt: "文章摘要"
-category: "分类名称"
-tags: ["标签1", "标签2"]
-coverImage: "/images/cover.jpg"  # 可选
-author: "作者名"  # 可选
+excerpt: "Article excerpt"
+category: "Category Name"
+tags: ["tag1", "tag2"]
+coverImage: "/images/cover.jpg"  # optional
+author: "Author Name"  # optional
 ---
 
-# 文章内容
+# Article Content
 
-这里是你的文章内容...
+Here's your article content...
 ```
 
-3. 重启开发服务器或重新构建即可看到新文章
+3. Restart the dev server or rebuild to see the new article
 
-## 项目结构
+## 📁 Project Structure
 
 ```
 blog/
-├── app/                    # Next.js 应用目录
-│   ├── blog/              # 小屋文章页面
-│   │   ├── [slug]/        # 动态路由：文章详情
-│   │   └── page.tsx       # 文章列表页
-│   ├── category/          # 分类相关页面
-│   │   ├── [category]/    # 动态路由：单个分类
-│   │   └── page.tsx       # 分类列表页
-│   ├── tag/               # 标签相关页面
-│   │   ├── [tag]/         # 动态路由：单个标签
-│   │   └── page.tsx       # 标签云页面
-│   ├── about/             # 关于页面
-│   ├── links/             # 友链页面
-│   ├── layout.tsx         # 全局布局
-│   ├── page.tsx           # 首页
-│   └── globals.css        # 全局样式
-├── components/            # React 组件
-│   ├── Header.tsx         # 导航栏
-│   ├── Footer.tsx         # 页脚
-│   ├── PostCard.tsx       # 文章卡片
-│   └── MDXContent.tsx     # MDX 内容渲染
-├── lib/                   # 工具函数库
-│   └── posts.ts           # 文章处理逻辑
-├── content/               # 内容目录
-│   └── posts/             # 文章存储位置
-├── public/                # 静态资源
-│   └── images/            # 图片资源
-├── mdx-components.tsx     # MDX 组件配置
-├── next.config.ts         # Next.js 配置
-└── tsconfig.json          # TypeScript 配置
+├── app/                    # Next.js app directory
+│   ├── blog/              # Blog pages
+│   │   ├── [slug]/        # Dynamic route: article detail
+│   │   └── page.tsx       # Article listing page
+│   ├── category/          # Category pages
+│   │   ├── [category]/    # Dynamic route: single category
+│   │   └── page.tsx       # Category listing page
+│   ├── tag/               # Tag pages
+│   │   ├── [tag]/         # Dynamic route: single tag
+│   │   └── page.tsx       # Tag cloud page
+│   ├── about/             # About page
+│   ├── links/             # Links page
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Homepage
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   ├── Header.tsx         # Navigation header
+│   ├── Footer.tsx         # Footer
+│   ├── PostCard.tsx       # Article card
+│   └── MDXContent.tsx     # MDX content renderer
+├── lib/                   # Utility functions
+│   └── posts.ts           # Post processing logic
+├── content/               # Content directory
+│   └── posts/             # Article storage
+├── public/                # Static assets
+│   └── images/            # Image assets
+├── mdx-components.tsx     # MDX component configuration
+├── next.config.ts         # Next.js configuration
+└── tsconfig.json          # TypeScript configuration
 ```
 
-## 自定义配置
+## 🎨 Customization
 
-### 修改网站信息
+### Modify site information
 
-编辑 `app/layout.tsx` 修改网站标题和描述：
+Edit `app/layout.tsx` to change site title and description:
 
 ```typescript
 export const metadata: Metadata = {
-  title: "你的小屋标题",
-  description: "你的小屋描述",
+  title: "Your House Title",
+  description: "Your house description",
 };
 ```
 
-### 修改导航栏
+### Modify navigation
 
-编辑 `components/Header.tsx` 中的 `navLinks` 数组：
+Edit the `navLinks` array in `components/Header.tsx`:
 
 ```typescript
 const navLinks = [
-  { href: '/', label: '首页' },
-  { href: '/blog', label: '小屋' },
-  // 添加更多链接...
+  { href: '/', label: '🏠 Living Room', icon: '🏠' },
+  { href: '/blog', label: '💭 Chats', icon: '💭' },
+  // Add more links...
 ];
 ```
 
-### 自定义样式
+### Customize styles
 
-修改 `app/globals.css` 中的 CSS 变量：
+Modify CSS variables in `app/globals.css`:
 
 ```css
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: hsl(40 25% 98%);
+  --foreground: hsl(25 30% 20%);
+  --primary: hsl(30 60% 45%);
 }
 ```
 
-## 部署
+## 🌍 Deployment
 
-### Vercel 部署（推荐）
+### Vercel (Recommended)
 
-1. 将代码推送到 GitHub
-2. 在 [Vercel](https://vercel.com) 导入项目
-3. Vercel 会自动检测 Next.js 项目并部署
+1. Push code to GitHub
+2. Import project on [Vercel](https://vercel.com)
+3. Vercel will automatically detect Next.js project and deploy
 
-### 其他平台
+### Other Platforms
 
-本项目支持所有支持 Next.js 的托管平台，如：
+This project supports all Next.js-compatible hosting platforms:
 - Netlify
 - AWS Amplify
 - Cloudflare Pages
 
-## 性能优化
+## ⚡ Performance
 
-- ✅ 使用静态站点生成（SSG）
-- ✅ 自动代码分割
-- ✅ 图片优化（使用 Next.js Image 组件）
-- ✅ CSS 优化（Tailwind CSS 自动清除未使用的样式）
+- ✅ Static site generation (SSG)
+- ✅ Automatic code splitting
+- ✅ Image optimization (Next.js Image component)
+- ✅ CSS optimization (Tailwind CSS purging)
 
-## License
+## 🌐 Internationalization
+
+This project supports both Chinese and English:
+- Chinese version: `README.zh-CN.md`
+- English version: `README.md` (default)
+
+## 📄 License
 
 MIT
+
+---
+
+**欢迎你来到这里，亲爱的朋友！**
+*Welcome to my little corner of the internet, dear friend!* 🏡✨
