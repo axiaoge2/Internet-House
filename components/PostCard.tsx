@@ -3,23 +3,32 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { PostMeta } from '@/lib/posts';
+import { translations, getLocaleFromPathname } from '@/lib/i18n';
+import { usePathname } from 'next/navigation';
 
 interface PostCardProps {
   post: PostMeta;
+  locale?: 'en' | 'zh-CN';
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, locale }: PostCardProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
-  const formattedDate = new Date(post.date).toLocaleDateString('zh-CN', {
+  // 如果没有传入locale，从路径中获取
+  const currentLocale = locale || getLocaleFromPathname(pathname);
+  const t = translations[currentLocale];
+
+  const formattedDate = new Date(post.date).toLocaleDateString(currentLocale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 
-  // 点击卡片跳转到文章详情
+  // Handle card click to navigate to article details
   const handleCardClick = () => {
-    router.push(`/blog/${post.slug}`);
+    const blogPath = currentLocale === 'zh-CN' ? `/zh-CN/blog/${post.slug}` : `/blog/${post.slug}`;
+    router.push(blogPath);
   };
 
   return (
@@ -28,7 +37,7 @@ export default function PostCard({ post }: PostCardProps) {
       onClick={handleCardClick}
     >
       <div className="p-6">
-        {/* 文章元信息 */}
+        {/* Article metadata */}
         <div className="flex items-center gap-2 text-sm text-foreground/60 mb-4">
           <span className="flex items-center gap-1">
             📅 <time dateTime={post.date}>{formattedDate}</time>
@@ -39,7 +48,7 @@ export default function PostCard({ post }: PostCardProps) {
           </span>
           <span>•</span>
           <Link
-            href={`/category/${post.category}`}
+            href={currentLocale === 'zh-CN' ? `/zh-CN/category/${post.category}` : `/category/${post.category}`}
             className="flex items-center gap-1 text-primary hover:text-accent transition-colors"
             onClick={(e) => e.stopPropagation()}
           >
@@ -47,23 +56,23 @@ export default function PostCard({ post }: PostCardProps) {
           </Link>
         </div>
 
-        {/* 文章标题 */}
+        {/* Article title */}
         <h2 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors cozy-text-shadow">
           {post.title}
         </h2>
 
-        {/* 文章摘要 */}
+        {/* Article excerpt */}
         <p className="text-foreground/70 mb-6 line-clamp-3 leading-relaxed">
           {post.excerpt}
         </p>
 
-        {/* 标签 */}
+        {/* Tags */}
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <Link
                 key={tag}
-                href={`/tag/${tag}`}
+                href={currentLocale === 'zh-CN' ? `/zh-CN/tag/${tag}` : `/tag/${tag}`}
                 className="text-xs px-3 py-1 bg-accent text-accent-foreground rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-200 border border-border"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -73,10 +82,10 @@ export default function PostCard({ post }: PostCardProps) {
           </div>
         )}
 
-        {/* 阅读提示 */}
+        {/* Reading hint */}
         <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
           <span className="text-sm text-foreground/50 group-hover:text-foreground/70 transition-colors">
-            点击阅读完整故事 →
+            {t.common.readMore}
           </span>
           <span className="text-lg opacity-0 group-hover:opacity-100 transition-opacity">
             💫

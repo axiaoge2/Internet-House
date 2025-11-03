@@ -1,5 +1,11 @@
 # Internet House 🏡
 
+## 🎯 项目有何意义？
+
+虽然从功能来看，其实只是个人博客，但是对于我来说它更像是我的房子，而且是第一套——在互联网上的。重要的是这里只属于我，不属于其他人，由我自己亲自设计，更重要的，在这里我感觉到很轻松温馨，自由自由，在纷繁复杂的世界中，有属于自己的精神空间。
+
+---
+
 A modern personal blog reimagined as a cozy home on the internet. Built with Next.js 16, Tailwind CSS v4, and MDX.
 
 > "This isn't just a personal blog—it's my first house online, a space that belongs only to me where I can truly be myself and feel a sense of belonging."

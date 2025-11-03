@@ -1,10 +1,16 @@
-'use client';
-
+import { getAllPosts } from '@/lib/posts';
+import PostCard from '@/components/PostCard';
 import Link from 'next/link';
-import { useLanguage } from '@/components/LanguageProvider';
+import { getLocaleFromPathname, translations } from '@/lib/i18n';
+import { getLocalizedPath } from '@/lib/i18n';
 
-export default function Home() {
-  const { locale } = useLanguage();
+interface HomeProps {
+  locale?: 'en' | 'zh-CN';
+}
+
+export default function Home({ locale = 'en' }: HomeProps) {
+  const posts = getAllPosts().slice(0, 6); // 显示最新的6篇文章
+  const t = translations[locale];
 
   const heroContent = {
     'zh-CN': {
@@ -105,22 +111,30 @@ export default function Home() {
             <p className="text-foreground/60">{content.recentPostsDesc}</p>
           </div>
           <Link
-            href="/blog"
+            href={getLocalizedPath('/blog', locale)}
             className="cozy-button inline-flex items-center gap-2"
           >
             {content.readMore}
           </Link>
         </div>
 
-        <div className="text-center py-16 bg-card rounded-2xl border border-border">
-          <div className="text-6xl mb-4">🏗️</div>
-          <p className="text-foreground/60 text-lg mb-2">
-            {content.houseUnderRenovation}
-          </p>
-          <p className="text-foreground/40">
-            {content.firstStory}
-          </p>
-        </div>
+        {posts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post) => (
+              <PostCard key={post.slug} post={post} locale={locale} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-card rounded-2xl border border-border">
+            <div className="text-6xl mb-4">🏗️</div>
+            <p className="text-foreground/60 text-lg mb-2">
+              {content.houseUnderRenovation}
+            </p>
+            <p className="text-foreground/40">
+              {content.firstStory}
+            </p>
+          </div>
+        )}
       </section>
 
       {/* House Stats */}
@@ -129,20 +143,30 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-card rounded-2xl border border-border p-8 text-center warm-shadow hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">📚</div>
-            <div className="text-3xl font-bold text-primary mb-2">0</div>
-            <div className="text-foreground/90 font-medium">0 {content.posts}</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              {getAllPosts().length}
+            </div>
+            <div className="text-foreground/90 font-medium">{getAllPosts().length} {content.posts}</div>
             <p className="text-foreground/60 text-sm mt-2">{content.postsDesc}</p>
           </div>
           <div className="bg-card rounded-2xl border border-border p-8 text-center warm-shadow hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🏠</div>
-            <div className="text-3xl font-bold text-primary mb-2">0</div>
-            <div className="text-foreground/90 font-medium">0 {content.categories}</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              {new Set(getAllPosts().map(p => p.category)).size}
+            </div>
+            <div className="text-foreground/90 font-medium">
+              {new Set(getAllPosts().map(p => p.category)).size} {content.categories}
+            </div>
             <p className="text-foreground/60 text-sm mt-2">{content.categoriesDesc}</p>
           </div>
           <div className="bg-card rounded-2xl border border-border p-8 text-center warm-shadow hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🏷️</div>
-            <div className="text-3xl font-bold text-primary mb-2">0</div>
-            <div className="text-foreground/90 font-medium">0 {content.tags}</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              {new Set(getAllPosts().flatMap(p => p.tags)).size}
+            </div>
+            <div className="text-foreground/90 font-medium">
+              {new Set(getAllPosts().flatMap(p => p.tags)).size} {content.tags}
+            </div>
             <p className="text-foreground/60 text-sm mt-2">{content.tagsDesc}</p>
           </div>
         </div>

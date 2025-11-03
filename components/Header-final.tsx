@@ -3,13 +3,12 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
-import LanguageToggle from './LanguageToggle';
 import { useLanguage } from './LanguageProvider';
 import { getLocalizedPath } from '@/lib/i18n';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { locale, t } = useLanguage();
+  const { locale, t, toggleLanguage } = useLanguage();
 
   const navLinks = [
     { href: '/', labelKey: 'nav.home' },
@@ -25,7 +24,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href={getLocalizedPath('/', locale)} className="flex items-center gap-2 text-2xl font-bold text-foreground hover:opacity-80 transition-opacity cozy-text-shadow">
-            🏡 {locale === 'zh-CN' ? '我的小屋' : 'My Internet House'}
+            🏡 {locale === 'zh-CN' ? '我的互联网小屋' : 'My Internet House'}
           </Link>
 
           {/* Desktop Navigation */}
@@ -58,7 +57,17 @@ export default function Header() {
                 </Link>
               );
             })}
-            <LanguageToggle />
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground hover:bg-accent transition-all duration-200 text-sm font-medium"
+              aria-label={t.common.language}
+            >
+              <span>{locale === 'en' ? '🇺🇸' : '🇨🇳'}</span>
+              <span className="hidden md:inline">
+                {locale === 'en' ? 'EN' : '中文'}
+              </span>
+            </button>
             <ThemeToggle />
           </div>
 
@@ -120,11 +129,21 @@ export default function Header() {
             })}
             <div className="pt-4 border-t border-border mt-4 space-y-3">
               <div className="flex items-center justify-between px-4">
-                <span className="text-foreground/80 font-medium">🌐 {t.common.language}</span>
-                <LanguageToggle />
+                <span className="text-foreground/80 font-medium">
+                  🌐 {t.common.language}
+                </span>
+                <button
+                  onClick={toggleLanguage}
+                  className="flex items-center gap-2 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground hover:bg-accent transition-all duration-200 text-sm font-medium"
+                >
+                  <span>{locale === 'en' ? '🇺🇸' : '🇨🇳'}</span>
+                  <span>{locale === 'en' ? 'EN' : '中文'}</span>
+                </button>
               </div>
               <div className="flex items-center justify-between px-4">
-                <span className="text-foreground/80 font-medium">🌙 {t.common.darkMode}</span>
+                <span className="text-foreground/80 font-medium">
+                  🌙 {t.common.darkMode}
+                </span>
                 <ThemeToggle />
               </div>
             </div>

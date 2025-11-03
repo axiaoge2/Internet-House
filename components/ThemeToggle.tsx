@@ -1,16 +1,21 @@
 'use client';
 
 import { useTheme } from './ThemeProvider';
+import { translations, getLocaleFromPathname } from '@/lib/i18n';
+import { usePathname } from 'next/navigation';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme, mounted } = useTheme();
+  const pathname = usePathname();
+  const currentLocale = getLocaleFromPathname(pathname);
+  const t = translations[currentLocale];
 
   if (!mounted) {
     return (
       <button
         disabled
         className="p-2 rounded-lg text-foreground/40 cursor-not-allowed"
-        aria-label="加载中..."
+        aria-label={t.common.loading}
       >
         <div className="w-5 h-5 animate-pulse bg-current rounded"></div>
       </button>
@@ -21,11 +26,11 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       className="p-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent transition-all duration-200"
-      aria-label={theme === 'light' ? '切换到暗黑模式' : '切换到亮色模式'}
-      title={theme === 'light' ? '切换到暗黑模式' : '切换到亮色模式'}
+      aria-label={theme === 'light' ? t.common.darkMode : t.common.lightMode}
+      title={theme === 'light' ? t.common.darkMode : t.common.lightMode}
     >
       {theme === 'light' ? (
-        // 月亮图标 (暗黑模式)
+        // Moon icon (dark mode)
         <svg
           className="w-5 h-5"
           fill="none"
@@ -38,7 +43,7 @@ export default function ThemeToggle() {
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       ) : (
-        // 太阳图标 (亮色模式)
+        // Sun icon (light mode)
         <svg
           className="w-5 h-5"
           fill="none"

@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { getAllTags, getPostsByTag } from '@/lib/posts';
 
-export default function TagsPage() {
+export default function ChineseTagPage() {
   const tags = getAllTags();
 
   return (
     <div className="container mx-auto px-4 py-12 cozy-bg-pattern">
-      <div className="text-4xl font-bold mb-8 text-foreground">Tags</div>
+      <div className="text-4xl font-bold mb-8 text-foreground">所有标签</div>
 
       {tags.length > 0 ? (
         <div className="flex flex-wrap gap-3">
@@ -19,7 +19,7 @@ export default function TagsPage() {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-foreground/60 text-lg">No tags yet</p>
+          <p className="text-foreground/60 text-lg">暂无标签</p>
         </div>
       )}
     </div>
@@ -32,7 +32,7 @@ function TagCloudItem({ tag, postsCount }: { tag: string; postsCount: number }) 
 
   return (
     <Link
-      href={`/tag/${tag}`}
+      href={`/zh-CN/tag/${tag}`}
       className="inline-block px-4 py-2 bg-card border border-border rounded-full hover:bg-accent hover:border-primary hover:text-primary transition-all"
       style={{ fontSize }}
     >
