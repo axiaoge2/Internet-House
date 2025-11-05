@@ -11,19 +11,9 @@ interface Props {
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  // Generate params for both English and Chinese versions
-  const params: { slug: string }[] = [];
-
-  // English paths (default)
-  posts.forEach((post) => {
-    params.push({ slug: post.slug });
-  });
-
-  // Chinese paths (these will be generated dynamically)
-  // In development, Next.js will handle dynamic routing
-  // In production, we might need to add these to build process
-
-  return params;
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -44,7 +34,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function BlogPost({ params }: Props) {
+export default async function ChineseBlogPost({ params }: Props) {
   const { slug } = await params;
   // Decode URL-encoded Chinese characters in the slug
   const decodedSlug = decodeURIComponent(slug);

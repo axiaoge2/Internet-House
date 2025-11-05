@@ -9,7 +9,7 @@ import { getLocaleFromPathname, translations, getLocalizedPath } from '@/lib/i18
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const [currentLocale, setCurrentLocale] = useState<'en' | 'zh-CN'>('en');
+  const [currentLocale, setCurrentLocale] = useState<'en' | 'zh'>('en');
   const [t, setT] = useState(translations.en);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Header() {
   ];
 
   const toggleLanguage = () => {
-    const newLocale = currentLocale === 'en' ? 'zh-CN' : 'en';
+    const newLocale = currentLocale === 'en' ? 'zh' : 'en';
     const newPath = getLocalizedPath(pathname, newLocale);
     window.location.href = newPath;
   };
@@ -38,7 +38,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href={getLocalizedPath('/', currentLocale)} className="flex items-center gap-2 text-2xl font-bold text-foreground hover:opacity-80 transition-opacity cozy-text-shadow">
-            🏡 {t.home.title.split(' ')[0]} {currentLocale === 'zh-CN' ? '小屋' : 'House'}
+            🏡 {t.home.title.split(' ')[0]} {currentLocale === 'zh' ? '小屋' : 'House'}
           </Link>
 
           {/* Desktop Navigation */}

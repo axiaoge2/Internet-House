@@ -4,11 +4,11 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { getLocaleFromPathname, translations, getLocalizedPath } from '@/lib/i18n';
 
-type Locale = 'en' | 'zh-CN';
+type Locale = 'en' | 'zh';
 
 interface LanguageContextType {
   locale: Locale;
-  t: typeof translations.en | typeof translations['zh-CN'];
+  t: typeof translations.en | typeof translations['zh'];
   toggleLanguage: () => void;
 }
 
@@ -26,7 +26,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   const toggleLanguage = () => {
-    const newLocale = locale === 'en' ? 'zh-CN' : 'en';
+    const newLocale = locale === 'en' ? 'zh' : 'en';
     const newPath = getLocalizedPath(pathname, newLocale);
     window.location.href = newPath;
   };

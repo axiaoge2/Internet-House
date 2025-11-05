@@ -10,12 +10,14 @@ export default function ThemeToggle() {
   const currentLocale = getLocaleFromPathname(pathname);
   const t = translations[currentLocale];
 
+  // Use a generic loading state that's the same for all locales to avoid hydration mismatch
   if (!mounted) {
     return (
       <button
         disabled
         className="p-2 rounded-lg text-foreground/40 cursor-not-allowed"
-        aria-label={t.common.loading}
+        aria-label="Loading theme..."
+        suppressHydrationWarning
       >
         <div className="w-5 h-5 animate-pulse bg-current rounded"></div>
       </button>

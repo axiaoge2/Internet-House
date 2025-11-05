@@ -12,6 +12,6 @@ export function useTranslation() {
     locale,
     t,
     isEnglish: locale === 'en',
-    isChinese: locale === 'zh-CN',
+    isChinese: locale === 'zh',
   };
 }

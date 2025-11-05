@@ -1,22 +1,22 @@
-export type Locale = 'en' | 'zh-CN';
+export type Locale = 'en' | 'zh';
 
 export const defaultLocale: Locale = 'en';
-export const locales: Locale[] = ['en', 'zh-CN'];
+export const locales: Locale[] = ['en', 'zh'];
 
 export const localeNames = {
   en: 'English',
-  'zh-CN': '中文',
+  'zh': '中文',
 } as const;
 
 export const localeFlags = {
   en: '🇺🇸',
-  'zh-CN': '🇨🇳',
+  'zh': '🇨🇳',
 } as const;
 
 // 获取当前语言
 export function getLocaleFromPathname(pathname: string): Locale {
-  if (pathname.startsWith('/zh-CN')) {
-    return 'zh-CN';
+  if (pathname.startsWith('/zh')) {
+    return 'zh';
   }
   return defaultLocale;
 }
@@ -31,7 +31,7 @@ export function addLocaleToPath(pathname: string, locale: Locale): string {
 
 // 从路径中移除语言前缀
 export function removeLocaleFromPath(pathname: string): string {
-  return pathname.replace(/^\/zh-CN/, '') || '/';
+  return pathname.replace(/^\/zh/, '') || '/';
 }
 
 // 获取本地化的路径
@@ -105,7 +105,7 @@ export const translations = {
       readMore: 'Read Full Story →',
     },
   },
-  'zh-CN': {
+  'zh': {
     nav: {
       home: '🏠 客厅',
       blog: '💭 碎碎念',

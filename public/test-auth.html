@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>认证状态测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>博客认证状态测试</h1>
+
+    <div id="status"></div>
+
+    <button onclick="checkAuth()">检查认证状态</button>
+    <button onclick="clearAuth()">清除认证</button>
+    <button onclick="testAPI()">测试 API</button>
+
+    <script>
+        function checkAuth() {
+            const authStatus = localStorage.getItem('study-auth');
+            const authTime = localStorage.getItem('study-auth-time');
+
+            let statusHTML = '<h2>认证状态：</h2>';
+
+            if (authStatus && authTime) {
+                const authDate = new Date(authTime);
+                const now = new Date();
+                const hoursDiff = (now.getTime() - authDate.getTime()) / (1000 * 60 * 60);
+
+                if (hoursDiff > 24) {
+                    statusHTML += '<div class="status error">认证已过期（' + hoursDiff.toFixed(1) + ' 小时前）</div>';
+                } else {
+                    statusHTML += '<div class="status success">认证有效（剩余 ' + (24 - hoursDiff).toFixed(1) + ' 小时）</div>';
+                }
+
+                statusHTML += '<p><strong>认证状态:</strong> ' + authStatus + '</p>';
+                statusHTML += '<p><strong>认证时间:</strong> ' + authDate.toLocaleString() + '</p>';
+            } else {
+                statusHTML += '<div class="status error">未认证</div>';
+            }
+
+            document.getElementById('status').innerHTML = statusHTML;
+        }
+
+        function clearAuth() {
+            localStorage.removeItem('study-auth');
+            localStorage.removeItem('study-auth-time');
+            checkAuth();
+        }
+
+        async function testAPI() {
+            const authTime = localStorage.getItem('study-auth-time') || '';
+
+            try {
+                const response = await fetch('/api/study/posts', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer study-auth-${authTime}`,
+                        'x-auth-time': authTime
+                    }
+                });
+
+                if (response.ok) {
+                    alert('API 访问成功！');
+                } else {
+                    alert('API 访问失败：' + response.status + ' ' + response.statusText);
+                }
+            } catch (error) {
+                alert('API 访问错误：' + error.message);
+            }
+        }
+
+        // 页面加载时自动检查
+        checkAuth();
+    </script>
+</body>
+</html>

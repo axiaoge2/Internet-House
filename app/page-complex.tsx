@@ -5,7 +5,7 @@ import { getLocaleFromPathname, translations } from '@/lib/i18n';
 import { getLocalizedPath } from '@/lib/i18n';
 
 interface HomeProps {
-  locale?: 'en' | 'zh-CN';
+  locale?: 'en' | 'zh';
 }
 
 export default function Home({ locale = 'en' }: HomeProps) {
@@ -53,28 +53,28 @@ export default function Home({ locale = 'en' }: HomeProps) {
     },
   };
 
-  const content = heroContent[locale];
+  const content = heroContent[locale === 'zh' ? 'zh-CN' : locale];
 
   const houseRules = [
     {
       icon: '🏠',
-      title: locale === 'zh-CN' ? '只属于我' : 'Only Mine',
-      desc: locale === 'zh-CN' ? '这里是我的精神自留地' : 'This is my spiritual territory',
+      title: locale === 'zh' ? '只属于我' : 'Only Mine',
+      desc: locale === 'zh' ? '这里是我的精神自留地' : 'This is my spiritual territory',
     },
     {
       icon: '💝',
-      title: locale === 'zh-CN' ? '永远在线' : 'Always Online',
-      desc: locale === 'zh-CN' ? '我永远都在这里等你' : 'I\'ll always be here waiting',
+      title: locale === 'zh' ? '永远在线' : 'Always Online',
+      desc: locale === 'zh' ? '我永远都在这里等你' : 'I\'ll always be here waiting',
     },
     {
       icon: '🌸',
-      title: locale === 'zh-CN' ? '轻松自在' : 'Relaxing',
-      desc: locale === 'zh-CN' ? '可以做最真实的自己' : 'Can be my authentic self',
+      title: locale === 'zh' ? '轻松自在' : 'Relaxing',
+      desc: locale === 'zh' ? '可以做最真实的自己' : 'Can be my authentic self',
     },
     {
       icon: '✨',
-      title: locale === 'zh-CN' ? '温馨归属' : 'Warm Belonging',
-      desc: locale === 'zh-CN' ? '这是心灵的避风港' : 'This is the soul\'s safe harbor',
+      title: locale === 'zh' ? '温馨归属' : 'Warm Belonging',
+      desc: locale === 'zh' ? '这是心灵的避风港' : 'This is the soul\'s safe harbor',
     },
   ];
 

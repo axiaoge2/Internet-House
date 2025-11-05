@@ -1,14 +1,53 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { useLanguage } from './LanguageProvider';
 import { getLocalizedPath } from '@/lib/i18n';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showSecret, setShowSecret] = useState(false);
+  const [logoHoverTimer, setLogoHoverTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { locale, t, toggleLanguage } = useLanguage();
+
+  // 检测滚动状态
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 处理 Logo 悬停显示隐藏入口
+  const handleLogoMouseEnter = () => {
+    const timer = setTimeout(() => {
+      setShowSecret(true);
+    }, 3000); // 悬停 3 秒后显示
+    setLogoHoverTimer(timer);
+  };
+
+  const handleLogoMouseLeave = () => {
+    if (logoHoverTimer) {
+      clearTimeout(logoHoverTimer);
+      setLogoHoverTimer(null);
+    }
+    // 不立即隐藏，给用户时间点击钥匙
+  };
+
+  // 钥匙区域的悬停处理
+  const handleSecretMouseEnter = () => {
+    // 鼠标移到钥匙区域时，保持显示
+  };
+
+  const handleSecretMouseLeave = () => {
+    // 鼠标离开钥匙区域时，延迟隐藏
+    setTimeout(() => setShowSecret(false), 1000);
+  };
 
   const navLinks = [
     { href: '/', labelKey: 'nav.home' },
@@ -19,13 +58,36 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 apple-glass ${isScrolled ? 'apple-glass-scrolled' : ''}`}>
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href={getLocalizedPath('/', locale)} className="flex items-center gap-2 text-2xl font-bold text-foreground hover:opacity-80 transition-opacity cozy-text-shadow">
-            🏡 {locale === 'zh-CN' ? '我的互联网小屋' : 'My Internet House'}
-          </Link>
+          {/* Logo with secret entrance */}
+          <div
+            className="flex items-center gap-2"
+            onMouseEnter={handleLogoMouseEnter}
+            onMouseLeave={handleLogoMouseLeave}
+          >
+            <Link
+              href={getLocalizedPath('/', locale)}
+              className="flex items-center gap-2 text-2xl font-bold text-foreground hover:opacity-80 transition-all duration-300 hover:scale-105 cozy-text-shadow"
+            >
+              🏡 {locale === 'zh' ? '我的互联网小屋' : 'My Internet House'}
+            </Link>
+
+            {/* Secret entrance - appears after 3 seconds hover */}
+            {showSecret && (
+              <Link
+                href={getLocalizedPath('/study', locale)}
+                className="flex items-center gap-1 px-3 py-1.5 text-sm text-foreground/70 hover:text-foreground apple-glass-button rounded-full transition-all duration-200 animate-fade-in hover:scale-105"
+                title={locale === 'zh' ? '主人的书房' : 'Master\'s Study'}
+                onMouseEnter={handleSecretMouseEnter}
+                onMouseLeave={handleSecretMouseLeave}
+              >
+                <span className="text-base">🔑</span>
+                {locale === 'zh' ? '书房' : 'Study'}
+              </Link>
+            )}
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
@@ -50,7 +112,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={getLocalizedPath(link.href, locale)}
-                  className="flex items-center gap-1 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground hover:bg-accent transition-all duration-200 text-sm font-medium"
+                  className="flex items-center gap-1 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground apple-glass-button transition-all duration-200 text-sm font-medium hover:scale-105"
                 >
                   <span className="text-base">{icon}</span>
                   {text}
@@ -60,7 +122,7 @@ export default function Header() {
             {/* Language Toggle Button */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground hover:bg-accent transition-all duration-200 text-sm font-medium"
+              className="flex items-center gap-2 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground apple-glass-button transition-all duration-200 text-sm font-medium hover:scale-105"
               aria-label={t.common.language}
             >
               <span>{locale === 'en' ? '🇺🇸' : '🇨🇳'}</span>
@@ -97,7 +159,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 bg-card rounded-2xl border border-border p-4 warm-shadow">
+          <div className="md:hidden mt-4 pb-4 apple-glass-dropdown rounded-2xl border-0 p-4 animate-fade-in">
             {navLinks.map((link) => {
               const keys = link.labelKey.split('.');
               let label: string | undefined;
@@ -119,7 +181,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={getLocalizedPath(link.href, locale)}
-                  className="flex items-center gap-3 py-3 px-4 rounded-xl text-foreground/80 hover:text-foreground hover:bg-accent transition-all duration-200 mb-2"
+                  className="flex items-center gap-3 py-3 px-4 rounded-xl text-foreground/80 hover:text-foreground hover:bg-accent/20 transition-all duration-200 mb-2 hover:scale-105"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <span className="text-xl">{icon}</span>
@@ -134,7 +196,7 @@ export default function Header() {
                 </span>
                 <button
                   onClick={toggleLanguage}
-                  className="flex items-center gap-2 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground hover:bg-accent transition-all duration-200 text-sm font-medium"
+                  className="flex items-center gap-2 px-3 py-2 rounded-full text-foreground/70 hover:text-foreground apple-glass-button transition-all duration-200 text-sm font-medium hover:scale-105"
                 >
                   <span>{locale === 'en' ? '🇺🇸' : '🇨🇳'}</span>
                   <span>{locale === 'en' ? 'EN' : '中文'}</span>

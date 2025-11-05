@@ -26,7 +26,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href={getLocalizedPath('/', currentLocale)} className="flex items-center gap-2 text-2xl font-bold text-foreground hover:opacity-80 transition-opacity cozy-text-shadow">
-            🏡 {t.home.title.split(' ')[0]} {currentLocale === 'zh-CN' ? '小屋' : 'House'}
+            🏡 {t.home.title.split(' ')[0]} {currentLocale === 'zh' ? '小屋' : 'House'}
           </Link>
 
           {/* Desktop Navigation */}

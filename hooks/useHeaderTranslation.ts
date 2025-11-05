@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 export function useHeaderTranslation() {
   const pathname = usePathname();
-  const [locale, setLocale] = useState<'en' | 'zh-CN'>('en');
+  const [locale, setLocale] = useState<'en' | 'zh'>('en');
   const [t, setT] = useState(translations.en);
 
   useEffect(() => {
@@ -19,6 +19,6 @@ export function useHeaderTranslation() {
     locale,
     t,
     isEnglish: locale === 'en',
-    isChinese: locale === 'zh-CN',
+    isChinese: locale === 'zh',
   };
 }

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getLocalizedPath } from '@/lib/i18n';
-import { useLanguage } from '@/components/LanguageProvider';
 
 interface Article {
   fileName: string;
@@ -15,8 +14,7 @@ interface Article {
   author: string;
 }
 
-export default function BlogPage() {
-  const { locale } = useLanguage();
+export default function ChineseBlogPage() {
   const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,34 +37,18 @@ export default function BlogPage() {
     fetchAllArticles();
   }, []);
 
-  const content = locale === 'zh' ? {
-    title: '碎碎念',
-    subtitle: '我的思考和故事',
-    noPosts: '还没有碎碎念...',
-    comingSoon: '很快就会有内容了 ✨',
-    readMore: '阅读全文',
-    backToHome: '🏠 回到客厅'
-  } : {
-    title: 'Random Thoughts',
-    subtitle: 'My thoughts and stories',
-    noPosts: 'No posts yet',
-    comingSoon: 'Coming soon ✨',
-    readMore: 'Read more',
-    backToHome: '🏠 Back to Living Room'
-  };
-
   return (
     <div className="container mx-auto px-4 py-12 cozy-bg-pattern">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-4xl font-bold mb-2 text-foreground">{content.title}</h1>
-          <p className="text-lg text-foreground/60">{content.subtitle}</p>
+          <h1 className="text-4xl font-bold mb-2 text-foreground">碎碎念</h1>
+          <p className="text-lg text-foreground/60">我的思考和故事</p>
         </div>
         <Link
-          href={getLocalizedPath('/', locale)}
+          href="/zh"
           className="cozy-button inline-flex items-center gap-2"
         >
-          {content.backToHome}
+          🏠 回到客厅
         </Link>
       </div>
 
@@ -74,7 +56,7 @@ export default function BlogPage() {
         <div className="text-center py-16 bg-card rounded-2xl border border-border">
           <div className="text-6xl mb-4 animate-spin">⏳</div>
           <p className="text-foreground/60 text-lg">
-            {locale === 'zh' ? '正在加载碎碎念...' : 'Loading thoughts...'}
+            正在加载碎碎念...
           </p>
         </div>
       ) : allArticles.length > 0 ? (
@@ -84,7 +66,7 @@ export default function BlogPage() {
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-foreground mb-2 hover:text-primary transition-colors">
-                    <Link href={getLocalizedPath(`/blog/${article.fileName.replace('.mdx', '')}`, locale)} className="hover:underline">
+                    <Link href={`/zh/blog/${article.fileName.replace('.mdx', '')}`} className="hover:underline">
                       {article.title}
                     </Link>
                   </h3>
@@ -123,10 +105,10 @@ export default function BlogPage() {
               )}
               <div className="flex justify-between items-center">
                 <Link
-                  href={getLocalizedPath(`/blog/${article.fileName.replace('.mdx', '')}`, locale)}
+                  href={`/zh/blog/${article.fileName.replace('.mdx', '')}`}
                   className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
                 >
-                  {content.readMore} →
+                  阅读全文 →
                 </Link>
               </div>
             </div>
@@ -136,10 +118,10 @@ export default function BlogPage() {
         <div className="text-center py-16 bg-card rounded-2xl border border-border">
           <div className="text-6xl mb-4">📝</div>
           <p className="text-foreground/60 text-lg">
-            {content.noPosts}
+            还没有碎碎念...
           </p>
           <p className="text-foreground/40 mt-2">
-            {content.comingSoon}
+            很快就会有内容了 ✨
           </p>
         </div>
       )}

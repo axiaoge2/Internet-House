@@ -51,8 +51,28 @@ export function getAllPosts(): PostMeta[] {
       } as PostMeta;
     });
 
-  // 按日期排序
-  return allPostsData.sort((a, b) => (a.date > b.date ? -1 : 1));
+  // 按日期排序，最新的在前面
+  // 如果日期相同，则按文件名中的时间戳排序
+  return allPostsData.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    if (dateA !== dateB) {
+      return dateB - dateA;
+    }
+
+    // 日期相同，按文件名中的时间戳排序
+    // 从slug中提取时间戳 (格式: 2025-11-03-title-timestamp)
+    const timestampA = a.slug.match(/(\d{13})$/);
+    const timestampB = b.slug.match(/(\d{13})$/);
+
+    if (timestampA && timestampB) {
+      return parseInt(timestampB[1]) - parseInt(timestampA[1]);
+    }
+
+    // 如果没有时间戳，按slug排序
+    return b.slug.localeCompare(a.slug);
+  });
 }
 
 // 根据slug获取文章

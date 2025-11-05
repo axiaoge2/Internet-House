@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 
 interface PostCardProps {
   post: PostMeta;
-  locale?: 'en' | 'zh-CN';
+  locale?: 'en' | 'zh';
 }
 
 export default function PostCard({ post, locale }: PostCardProps) {
@@ -27,7 +27,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
 
   // Handle card click to navigate to article details
   const handleCardClick = () => {
-    const blogPath = currentLocale === 'zh-CN' ? `/zh-CN/blog/${post.slug}` : `/blog/${post.slug}`;
+    const blogPath = currentLocale === 'zh' ? `/zh/blog/${post.slug}` : `/blog/${post.slug}`;
     router.push(blogPath);
   };
 
@@ -48,7 +48,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
           </span>
           <span>•</span>
           <Link
-            href={currentLocale === 'zh-CN' ? `/zh-CN/category/${post.category}` : `/category/${post.category}`}
+            href={currentLocale === 'zh' ? `/zh/category/${post.category}` : `/category/${post.category}`}
             className="flex items-center gap-1 text-primary hover:text-accent transition-colors"
             onClick={(e) => e.stopPropagation()}
           >
@@ -72,7 +72,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
             {post.tags.map((tag) => (
               <Link
                 key={tag}
-                href={currentLocale === 'zh-CN' ? `/zh-CN/tag/${tag}` : `/tag/${tag}`}
+                href={currentLocale === 'zh' ? `/zh/tag/${tag}` : `/tag/${tag}`}
                 className="text-xs px-3 py-1 bg-accent text-accent-foreground rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-200 border border-border"
                 onClick={(e) => e.stopPropagation()}
               >

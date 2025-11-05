@@ -17,10 +17,10 @@ export default function Footer() {
           {/* About Section */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-              🏠 {currentLocale === 'zh-CN' ? '关于小屋' : 'About This House'}
+              🏠 {currentLocale === 'zh' ? '关于小屋' : 'About This House'}
             </h3>
             <p className="text-sm text-foreground/70 leading-relaxed">
-              {currentLocale === 'zh-CN'
+              {currentLocale === 'zh'
                 ? '这是只属于我的精神角落，一个可以卸下所有伪装、做真实自己的地方。在这里记录生活、分享感悟，享受内心的宁静与自由。'
                 : 'This is my spiritual corner, a place where I can remove all disguises and be my true self. Here I document life, share insights, and enjoy inner peace and freedom.'
               }
@@ -30,7 +30,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-              🚪 {currentLocale === 'zh-CN' ? '小屋地图' : 'House Map'}
+              🚪 {currentLocale === 'zh' ? '小屋地图' : 'House Map'}
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
@@ -38,7 +38,7 @@ export default function Footer() {
                   href={getLocalizedPath('/blog', currentLocale)}
                   className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors"
                 >
-                  💭 {currentLocale === 'zh-CN' ? '听更多碎碎念' : 'Read More Thoughts'}
+                  💭 {currentLocale === 'zh' ? '听更多碎碎念' : 'Read More Thoughts'}
                 </Link>
               </li>
               <li>
@@ -46,7 +46,7 @@ export default function Footer() {
                   href={getLocalizedPath('/category', currentLocale)}
                   className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors"
                 >
-                  🏠 {currentLocale === 'zh-CN' ? '参观各个房间' : 'Explore Rooms'}
+                  🏠 {currentLocale === 'zh' ? '参观各个房间' : 'Explore Rooms'}
                 </Link>
               </li>
               <li>
@@ -54,7 +54,7 @@ export default function Footer() {
                   href={getLocalizedPath('/tag', currentLocale)}
                   className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors"
                 >
-                  🏷️ {currentLocale === 'zh-CN' ? '看看小物收藏' : 'Browse Collections'}
+                  🏷️ {currentLocale === 'zh' ? '看看小物收藏' : 'Browse Collections'}
                 </Link>
               </li>
               <li>
@@ -62,7 +62,7 @@ export default function Footer() {
                   href={getLocalizedPath('/about', currentLocale)}
                   className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors"
                 >
-                  👤 {currentLocale === 'zh-CN' ? '了解小屋主人' : 'About the Owner'}
+                  👤 {currentLocale === 'zh' ? '了解小屋主人' : 'About the Owner'}
                 </Link>
               </li>
             </ul>
@@ -71,7 +71,7 @@ export default function Footer() {
           {/* Social Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-              💌 {currentLocale === 'zh-CN' ? '找到我' : 'Find Me'}
+              💌 {currentLocale === 'zh' ? '找到我' : 'Find Me'}
             </h3>
             <div className="flex flex-col space-y-3">
               <a
@@ -88,7 +88,7 @@ export default function Footer() {
                 className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors"
               >
                 <span className="text-lg">📧</span>
-                <span className="text-sm">{currentLocale === 'zh-CN' ? '发邮件给我' : 'Email Me'}</span>
+                <span className="text-sm">{currentLocale === 'zh' ? '发邮件给我' : 'Email Me'}</span>
               </a>
             </div>
           </div>
@@ -99,13 +99,13 @@ export default function Footer() {
           <div className="mb-4">
             <p className="text-2xl mb-2">🌟</p>
             <p className="text-sm text-foreground/60 mb-2">
-              {currentLocale === 'zh-CN'
+              {currentLocale === 'zh'
                 ? '感谢你来到我的小屋 🏡'
                 : 'Thanks for visiting my house 🏡'
               }
             </p>
             <p className="text-xs text-foreground/40">
-              &copy; {currentYear} {currentLocale === 'zh-CN' ? '我的小屋. 用心守护每一份温暖 💝' : 'My House. Guarding every bit of warmth with care 💝'}
+              &copy; {currentYear} {currentLocale === 'zh' ? '我的小屋. 用心守护每一份温暖 💝' : 'My House. Guarding every bit of warmth with care 💝'}
             </p>
           </div>
         </div>

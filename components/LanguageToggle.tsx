@@ -39,13 +39,13 @@ export default function LanguageToggle() {
           {Object.entries(localeNames).map(([langCode, name]) => (
             <Link
               key={langCode}
-              href={getLocalizedPath(pathname, langCode as 'en' | 'zh-CN')}
+              href={getLocalizedPath(pathname, langCode as 'en' | 'zh')}
               onClick={handleLanguageChange}
               className={`flex items-center gap-3 w-full px-4 py-3 text-sm hover:bg-accent transition-colors first:rounded-t-xl last:rounded-b-xl ${
                 langCode === locale ? 'bg-accent text-foreground' : 'text-foreground/70'
               }`}
             >
-              <span className="text-lg">{localeFlags[langCode as 'en' | 'zh-CN']}</span>
+              <span className="text-lg">{localeFlags[langCode as 'en' | 'zh']}</span>
               <span>{name}</span>
               {langCode === locale && (
                 <svg className="w-4 h-4 ml-auto text-primary" fill="currentColor" viewBox="0 0 20 20">
